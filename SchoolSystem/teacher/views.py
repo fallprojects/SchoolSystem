@@ -1,12 +1,15 @@
 from django.shortcuts import render
+
+from pupils.models import Pupils
 from .models import *
 from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.response import Response
 
-class PupilsView(APIView):
+class TeacherView(APIView):
     def get(self,*args,**kwargs):
-        pupils = Pupils.objects.get(id=kwargs['pk'])
-        serializer = PupilsSerializer(pupils)
+        teacher = Teacher.objects.get(id=kwargs['pk'])
+        serializer = TeacherSerializer(teacher)
         return Response(serializer.data,status=status.HTTP_200_OK)
+

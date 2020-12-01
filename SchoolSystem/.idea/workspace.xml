@@ -19,11 +19,31 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="329194b2-299c-4602-909b-b5a7b2b8f399" name="Default Changelist" comment="" />
+    <list default="true" id="329194b2-299c-4602-909b-b5a7b2b8f399" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/pupils/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/teacher/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/teacher/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/teacher/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/teacher/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/teacher/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/teacher/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/teacher/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/teacher/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/teacher/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SchoolSystem/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolSystem/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SchoolSystem/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolSystem/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pupils/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pupils/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pupils/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -39,7 +59,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
     <configuration name="SchoolSystem" type="Python.DjangoServer" factoryName="Django server">
@@ -75,6 +96,7 @@
       <option name="presentableId" value="Default" />
       <updated>1606733849902</updated>
       <workItem from="1606733851115" duration="18000" />
+      <workItem from="1606818483359" duration="7555000" />
     </task>
     <servers />
   </component>
@@ -91,11 +113,16 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="466" y="121" width="424" height="478" key="FileChooserDialogImpl" timestamp="1606733867512">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="466" y="121" width="424" height="478" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1606733867512" />
+    <state x="187" y="0" key="SettingsEditor" timestamp="1606818510201">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="187" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1606818510201" />
   </component>
 </project>
