@@ -13,3 +13,18 @@ class TeacherView(APIView):
         serializer = TeacherSerializer(teacher)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
+class PupilstoSubjects(APIView):
+    def get(self,*args,**kwargs):
+        subjects = PupilstoObjects.objects.all()
+        serializer = PupilstoSubjectsSerializer(subjects,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+
+
+
+
+
+
+
+
+

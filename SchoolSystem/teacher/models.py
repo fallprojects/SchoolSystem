@@ -1,5 +1,6 @@
 from django.db import models
-from pupils.models import Class
+from pupils.models import *
+
 
 class Teacher(models.Model):
     first_name = models.CharField(max_length=50,null=True)
@@ -16,4 +17,10 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.subject
+
+class PupilstoObjects(models.Model):
+    subjects = models.ForeignKey(Subject,on_delete=models.SET_NULL,null=True,related_name='to_subjects')
+    classes = models.ManyToManyField(Class,null=True)
+
+
 

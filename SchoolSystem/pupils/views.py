@@ -10,3 +10,4 @@ class PupilsView(APIView):
         pupils = Pupils.objects.get(id=kwargs['pk'])
         serializer = PupilsSerializer(pupils)
         return Response(serializer.data,status=status.HTTP_200_OK)
+

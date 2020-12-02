@@ -20,22 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="329194b2-299c-4602-909b-b5a7b2b8f399" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pupils/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/teacher/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/teacher/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/teacher/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/teacher/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/teacher/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/teacher/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/teacher/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/teacher/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/teacher/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SchoolSystem/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolSystem/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SchoolSystem/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolSystem/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pupils/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pupils/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pupils/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pupils/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teacher/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teacher/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teacher/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teacher/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teacher/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +55,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RunManager">
     <configuration name="SchoolSystem" type="Python.DjangoServer" factoryName="Django server">
@@ -96,8 +91,17 @@
       <option name="presentableId" value="Default" />
       <updated>1606733849902</updated>
       <workItem from="1606733851115" duration="18000" />
-      <workItem from="1606818483359" duration="7555000" />
+      <workItem from="1606818483359" duration="8344000" />
+      <workItem from="1606895812307" duration="17593000" />
     </task>
+    <task id="LOCAL-00001" summary="modify">
+      <created>1606828154571</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606828154572</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,14 +119,22 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="modify" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="466" y="121" width="424" height="478" key="FileChooserDialogImpl" timestamp="1606733867512">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="466" y="121" width="424" height="478" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1606733867512" />
-    <state x="187" y="0" key="SettingsEditor" timestamp="1606818510201">
+    <state x="187" y="0" key="SettingsEditor" timestamp="1606909146930">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="187" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1606818510201" />
+    <state x="187" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1606909146930" />
+    <state x="278" y="99" width="800" height="522" key="Vcs.Push.Dialog.v2" timestamp="1606828258172">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="278" y="99" width="800" height="522" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1606828258172" />
   </component>
 </project>

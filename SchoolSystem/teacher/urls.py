@@ -4,4 +4,6 @@ from .views import *
 
 urlpatterns = [
     path('teacher/<int:pk>/',TeacherView.as_view(),name='teacher'),
+    path('subjects/',PupilstoSubjects.as_view(),name='subjects'),
+
 ]
