@@ -20,3 +20,4 @@ class Class(models.Model):
 class Grade(models.Model):
     grade = models.IntegerField()
 
+
