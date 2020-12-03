@@ -1,8 +1,6 @@
 from .views import *
 from rest_framework import serializers
 
-
-
 class PupilsSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -14,3 +12,4 @@ class ClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
         fields = ['id','pupil_class','pupils']
+
