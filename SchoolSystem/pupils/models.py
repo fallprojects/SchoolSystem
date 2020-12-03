@@ -1,13 +1,14 @@
 from django.db import models
 
-
-
-
 class Pupils(models.Model):
+    Sex = (
+        ('Мужской','Мужской'),
+        ('Женский','Женский')
+    )
     first_name = models.CharField(max_length=50,null=True)
     last_name = models.CharField(max_length=50,null=True)
-    sex = models.CharField(max_length=50,null=True)
-    date_of_birth = models.CharField(max_length=50,null=True)
+    sex = models.CharField(max_length=50,null=True,choices=Sex)
+    date_of_birth = models.DateField()
     classes = models.ForeignKey('Class',on_delete=models.SET_NULL,null=True,related_name='pupils')
 
     def __str__(self):
@@ -18,6 +19,5 @@ class Class(models.Model):
 
     def __str__(self):
         return self.pupil_class
-
 
 
