@@ -7,3 +7,5 @@ urlpatterns = [
     path('subjects/',PupilstoSubjects.as_view(),name='subjects'),
 
 ]
+
+

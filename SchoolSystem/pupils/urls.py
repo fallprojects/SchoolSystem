@@ -6,3 +6,6 @@ urlpatterns = [
     path('pupils/<int:pk>/',PupilsView.as_view(),name='pupils'),
 
 ]
+
+
+
