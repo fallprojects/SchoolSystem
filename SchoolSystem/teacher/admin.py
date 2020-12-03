@@ -3,3 +3,6 @@ from .models import *
 
 admin.site.register([Teacher,Subject,PupilstoObjects])
 
+
+
+
