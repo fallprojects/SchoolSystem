@@ -9,7 +9,6 @@ class Pupils(models.Model):
     sex = models.CharField(max_length=50,null=True)
     date_of_birth = models.CharField(max_length=50,null=True)
     classes = models.ForeignKey('Class',on_delete=models.SET_NULL,null=True,related_name='pupils')
-    grade = models.IntegerField()
 
     def __str__(self):
         return self.first_name

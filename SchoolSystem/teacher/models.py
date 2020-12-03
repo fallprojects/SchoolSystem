@@ -25,4 +25,7 @@ class PupilstoObjects(models.Model):
 
 
 class Grade(models.Model):
-    grade = models.ForeignKey(Pupils, on_delete=models.SET_NULL, null=True,related_name='grades')
+    pupil = models.ForeignKey(Pupils, on_delete=models.SET_NULL, null=True,related_name='grades')
+    subject = models.ForeignKey(Subject,on_delete=models.SET_NULL,null=True)
+    grade = models.IntegerField(default=1)
+    date_created = models.DateTimeField(auto_now_add=True)

@@ -1,6 +1,6 @@
 from .views import *
 from rest_framework import serializers
-from pupils.serializers import *
+from pupils.serializers import ClassSerializer
 
 class TeacherSerializer(serializers.ModelSerializer):
     classes = ClassSerializer()
