@@ -1,5 +1,6 @@
 from django.db import models
-from pupils.models import *
+
+from pupils.models import Class,Pupils
 
 
 class Teacher(models.Model):
@@ -23,6 +24,5 @@ class PupilstoObjects(models.Model):
     classes = models.ManyToManyField(Class,null=True)
 
 
-
-
-
+class Grade(models.Model):
+    grade = models.ForeignKey(Pupils, on_delete=models.SET_NULL, null=True,related_name='grades')
