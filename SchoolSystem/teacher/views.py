@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from pupils.models import Pupils
 from .models import *
 from rest_framework import status
@@ -18,13 +17,4 @@ class PupilstoSubjects(APIView):
         subjects = PupilstoObjects.objects.all()
         serializer = PupilstoSubjectsSerializer(subjects,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
-
-
-
-
-
-
-
-
-
 

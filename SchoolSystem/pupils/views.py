@@ -11,3 +11,7 @@ class PupilsView(APIView):
         serializer = PupilsSerializer(pupils)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
+
+
+
+
