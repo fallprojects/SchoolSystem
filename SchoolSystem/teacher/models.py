@@ -1,9 +1,9 @@
+from django.contrib.auth.models import User
 from django.db import models
-
 from pupils.models import Class,Pupils
 
-
 class Teacher(models.Model):
+    user = models.OneToOneField(User,on_delete=models.SET_NULL,null=True)
     first_name = models.CharField(max_length=50,null=True)
     last_name = models.CharField(max_length=50,null=True)
     otchestvo = models.CharField(max_length=50,null=True)
@@ -22,7 +22,6 @@ class Subject(models.Model):
 class PupilstoObjects(models.Model):
     subjects = models.ForeignKey(Subject,on_delete=models.SET_NULL,null=True,related_name='to_subjects')
     classes = models.ManyToManyField(Class,null=True)
-
 
 class Grade(models.Model):
     pupil = models.ForeignKey(Pupils, on_delete=models.SET_NULL, null=True,related_name='grades')
