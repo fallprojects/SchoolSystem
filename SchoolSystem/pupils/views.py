@@ -5,11 +5,9 @@ from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-
-
-
 
 class PupilsView(APIView):
     def get(self,*args,**kwargs):
@@ -19,4 +17,10 @@ class PupilsView(APIView):
             return Response(serializer.data,status=status.HTTP_200_OK)
         except Pupils.DoesNotExist:
             return Response({"data":"pupil not found"})
+
+class GradeView(APIView):
+    def get(self,*args,**kwargs):
+        grade = Pupils.objects.get(id=kwargs['pk'])
+        serializer = PupilsSerializer(grade)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
