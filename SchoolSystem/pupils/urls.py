@@ -4,6 +4,7 @@ from .views import *
 
 urlpatterns = [
     path('pupils/<int:pk>/',PupilsView.as_view(),name='pupils'),
+    path('grade/<int:pk>/',GradeView.as_view())
 
 ]
 
