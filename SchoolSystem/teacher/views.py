@@ -24,14 +24,14 @@ class PupilstoSubjects(APIView):
         serializer = PupilstoSubjectsSerializer(subjects)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
-
 class PupilSUbjectDetailGrade(APIView):
     permission_classes = [IsAuthenticated]
-    def get(self,*args,**kwargs):
-        subjects = PupilstoObjects.objects.get(id=kwargs['subject_id'])
-        pupil = Pupils.objects.get(id=kwargs['pupil_id'])
-        serializer = PupilsSerializer(pupil)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+    def get(self,request,*args,**kwargs):
+        if request.user.account.role == 'manager':
+            subjects = PupilstoObjects.objects.get(id=kwargs['subject_id'])
+            pupil = Pupils.objects.get(id=kwargs['pupil_id'])
+            serializer = PupilsSerializer(pupil)
+            return Response(serializer.data,status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         serializer = PupilsSerializer(data=request.data)
