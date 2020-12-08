@@ -20,27 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="329194b2-299c-4602-909b-b5a7b2b8f399" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/SchoolSystem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SchoolSystem.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pupils/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pupils/migrations/0002_auto_20201130_1227.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pupils/migrations/0003_auto_20201201_1246.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pupils/migrations/0004_auto_20201202_0915.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pupils/migrations/0005_auto_20201202_1232.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pupils/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pupils/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pupils/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/migrations/0002_pupilstoobjects.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/migrations/0003_auto_20201202_0951.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/migrations/0004_auto_20201202_0958.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/migrations/0005_pupilstoobjects_grade.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/migrations/0006_auto_20201202_1040.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/migrations/0007_auto_20201202_1055.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/migrations/0008_delete_grade.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SchoolSystem/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolSystem/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +37,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="JupyterTrust" id="6d3ac154-9ded-4dca-90c7-515a18381417" />
+  <component name="JupyterTrust" id="007a7637-5c86-482e-8ae5-8833c7c1813b" />
   <component name="ProjectId" id="1l0VA7eRKvMgIgRwMHPyDQW7Hfx" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -64,8 +48,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$USER_HOME$/new" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
   </component>
   <component name="RunManager">
     <configuration name="SchoolSystem" type="Python.DjangoServer" factoryName="Django server">
@@ -105,6 +89,10 @@
       <workItem from="1606895812307" duration="17754000" />
       <workItem from="1606980281779" duration="718000" />
       <workItem from="1606991240015" duration="1309000" />
+      <workItem from="1607074784569" duration="12478000" />
+      <workItem from="1607087491600" duration="48000" />
+      <workItem from="1607328522168" duration="968000" />
+      <workItem from="1607331485807" duration="5673000" />
     </task>
     <task id="LOCAL-00001" summary="modify">
       <created>1606828154571</created>
@@ -162,7 +150,84 @@
       <option name="project" value="LOCAL" />
       <updated>1606980984564</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="initial import">
+      <created>1607000920342</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1607000920342</updated>
+    </task>
+    <task id="LOCAL-00010" summary="modify fields in models">
+      <created>1607000958897</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1607000958897</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add func create grade">
+      <created>1607001010652</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1607001010652</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add new links">
+      <created>1607001038561</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1607001038561</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add DjangoFilterBackend">
+      <created>1607001059314</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1607001059314</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add new method post and get">
+      <created>1607001089530</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1607001089531</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add new field">
+      <created>1607087050675</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1607087050675</updated>
+    </task>
+    <task id="LOCAL-00016" summary="create total_register and auth">
+      <created>1607087113763</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1607087113763</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add authtoken in settings.py">
+      <created>1607087140584</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1607087140584</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add new links">
+      <created>1607087189633</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1607087189633</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add total_registration and auth">
+      <created>1607087228979</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1607087228979</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,22 +251,34 @@
     <MESSAGE value="add classes" />
     <MESSAGE value="add new serializers" />
     <MESSAGE value="add links" />
-    <option name="LAST_COMMIT_MESSAGE" value="add links" />
+    <MESSAGE value="initial import" />
+    <MESSAGE value="modify fields in models" />
+    <MESSAGE value="add func create grade" />
+    <MESSAGE value="add DjangoFilterBackend" />
+    <MESSAGE value="add new method post and get" />
+    <MESSAGE value="add new field" />
+    <MESSAGE value="create total_register and auth" />
+    <MESSAGE value="add authtoken in settings.py" />
+    <MESSAGE value="add new links" />
+    <MESSAGE value="add total_registration and auth" />
+    <option name="LAST_COMMIT_MESSAGE" value="add total_registration and auth" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="466" y="121" width="424" height="478" key="FileChooserDialogImpl" timestamp="1606733867512">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="467" y="121" width="424" height="478" key="FileChooserDialogImpl" timestamp="1607346333040">
+      <screen x="0" y="0" width="1368" height="728" />
     </state>
-    <state x="466" y="121" width="424" height="478" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1606733867512" />
-    <state x="0" y="0" key="SettingsEditor" timestamp="1606991278601">
-      <screen x="0" y="0" width="800" height="560" />
+    <state x="466" y="121" width="424" height="478" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1607328958321" />
+    <state x="467" y="121" width="424" height="478" key="FileChooserDialogImpl/0.0.1368.728@0.0.1368.728" timestamp="1607346333040" />
+    <state x="0" y="0" key="SettingsEditor" timestamp="1607333442069">
+      <screen x="0" y="0" width="1368" height="728" />
     </state>
     <state x="187" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1606909146930" />
+    <state x="0" y="0" key="SettingsEditor/0.0.1368.728@0.0.1368.728" timestamp="1607333442069" />
     <state x="0" y="0" key="SettingsEditor/0.0.800.560@0.0.800.560" timestamp="1606991278601" />
-    <state x="278" y="99" width="800" height="522" key="Vcs.Push.Dialog.v2" timestamp="1606913855849">
+    <state x="278" y="99" width="800" height="522" key="Vcs.Push.Dialog.v2" timestamp="1607087241255">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="278" y="99" width="800" height="522" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1606913855849" />
+    <state x="278" y="99" width="800" height="522" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1607087241255" />
     <state x="63" y="0" width="672" height="678" key="search.everywhere.popup" timestamp="1606991711664">
       <screen x="0" y="0" width="800" height="560" />
     </state>

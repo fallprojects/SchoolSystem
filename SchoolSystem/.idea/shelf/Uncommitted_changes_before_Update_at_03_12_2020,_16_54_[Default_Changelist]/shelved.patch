@@ -1,0 +1,543 @@
+Index: pupils/serializers.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from .views import *\nfrom rest_framework import serializers\n\nclass PupilsSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Pupils\n        fields = ['id','classes','first_name','last_name','grade']\n\nclass ClassSerializer(serializers.ModelSerializer):\n    pupils = serializers.StringRelatedField(many=True)\n    class Meta:\n        model = Class\n        fields = ['pupil_class','pupils']\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- pupils/serializers.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ pupils/serializers.py	(date 1606992882402)
+@@ -1,6 +1,12 @@
+ from .views import *
+ from rest_framework import serializers
+ 
++class GradeSerializer(serializers.ModelSerializer):
++    class Meta:
++        model = Grade
++        fields = ['']
++
++
+ class PupilsSerializer(serializers.ModelSerializer):
+     class Meta:
+         model = Pupils
+Index: pupils/models.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.db import models\n\n\n\n\nclass Pupils(models.Model):\n    first_name = models.CharField(max_length=50,null=True)\n    last_name = models.CharField(max_length=50,null=True)\n    sex = models.CharField(max_length=50,null=True)\n    date_of_birth = models.CharField(max_length=50,null=True)\n    classes = models.ForeignKey('Class',on_delete=models.SET_NULL,null=True,related_name='pupils')\n    grade = models.IntegerField()\n\n    def __str__(self):\n        return self.first_name\n\nclass Class(models.Model):\n    pupil_class = models.CharField(max_length=50, null=True)\n\n    def __str__(self):\n        return self.pupil_class\n\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- pupils/models.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ pupils/models.py	(date 1606992882458)
+@@ -20,5 +20,6 @@
+     def __str__(self):
+         return self.pupil_class
+ 
+-
++class Grade(models.Model):
++    grade = models.ForeignKey(Pupils, on_delete=models.SET_NULL, null=True,related_name='grades')
+ 
+Index: teacher/serializers.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from .views import *\nfrom rest_framework import serializers\nfrom pupils.serializers import *\n\nclass TeacherSerializer(serializers.ModelSerializer):\n    classes = ClassSerializer()\n    class Meta:\n        model = Teacher\n        fields = ['id','last_name','otchestvo','subject','classes']\n\nclass PupilstoSubjectsSerializer(serializers.ModelSerializer):\n    classes = ClassSerializer(many=True)\n    class Meta:\n        model = PupilstoObjects\n        fields = ['id','subjects','classes']\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- teacher/serializers.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ teacher/serializers.py	(date 1606992882374)
+@@ -1,6 +1,6 @@
+ from .views import *
+ from rest_framework import serializers
+-from pupils.serializers import *
++from pupils.serializers import ClassSerializer
+ 
+ class TeacherSerializer(serializers.ModelSerializer):
+     classes = ClassSerializer()
+Index: teacher/models.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.db import models\n\nfrom pupils.models import Class,Pupils\n\n\nclass Teacher(models.Model):\n    first_name = models.CharField(max_length=50,null=True)\n    last_name = models.CharField(max_length=50,null=True)\n    otchestvo = models.CharField(max_length=50,null=True)\n    subject = models.ForeignKey('Subject',models.SET_NULL,null=True)\n    classes = models.ForeignKey(Class, models.SET_NULL, null=True)\n\n    def __str__(self):\n        return self.first_name\n\nclass Subject(models.Model):\n    subject = models.CharField(max_length=50, null=True)\n\n    def __str__(self):\n        return self.subject\n\nclass PupilstoObjects(models.Model):\n    subjects = models.ForeignKey(Subject,on_delete=models.SET_NULL,null=True,related_name='to_subjects')\n    classes = models.ManyToManyField(Class,null=True)\n\n\nclass Grade(models.Model):\n    grade = models.ForeignKey(Pupils, on_delete=models.SET_NULL, null=True,related_name='grades')\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- teacher/models.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ teacher/models.py	(date 1606992882426)
+@@ -1,5 +1,4 @@
+ from django.db import models
+-
+ from pupils.models import Class,Pupils
+ 
+ 
+@@ -23,6 +22,7 @@
+     subjects = models.ForeignKey(Subject,on_delete=models.SET_NULL,null=True,related_name='to_subjects')
+     classes = models.ManyToManyField(Class,null=True)
+ 
+-
+ class Grade(models.Model):
+     grade = models.ForeignKey(Pupils, on_delete=models.SET_NULL, null=True,related_name='grades')
++    subject = models.ForeignKey(Subject,on_delete=models.SET_NULL,null=True)
++    pupils = models.ForeignKey(Pupils,on_delete=models.SET_NULL,null=True)
+\ No newline at end of file
+Index: pupils/migrations/0005_auto_20201202_1232.py
+===================================================================
+--- pupils/migrations/0005_auto_20201202_1232.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ pupils/migrations/0005_auto_20201202_1232.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
+@@ -1,26 +0,0 @@
+-# Generated by Django 3.1.3 on 2020-12-02 12:32
+-
+-from django.db import migrations, models
+-import django.db.models.deletion
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('pupils', '0004_auto_20201202_0915'),
+-    ]
+-
+-    operations = [
+-        migrations.CreateModel(
+-            name='Grade',
+-            fields=[
+-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+-                ('grade', models.IntegerField()),
+-            ],
+-        ),
+-        migrations.AddField(
+-            model_name='pupils',
+-            name='grade',
+-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='pupils.grade'),
+-        ),
+-    ]
+Index: pupils/migrations/0004_auto_20201202_0915.py
+===================================================================
+--- pupils/migrations/0004_auto_20201202_0915.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ pupils/migrations/0004_auto_20201202_0915.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
+@@ -1,19 +0,0 @@
+-# Generated by Django 3.1.3 on 2020-12-02 09:15
+-
+-from django.db import migrations, models
+-import django.db.models.deletion
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('pupils', '0003_auto_20201201_1246'),
+-    ]
+-
+-    operations = [
+-        migrations.AlterField(
+-            model_name='pupils',
+-            name='classes',
+-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='pupils', to='pupils.class'),
+-        ),
+-    ]
+Index: teacher/migrations/0006_auto_20201202_1040.py
+===================================================================
+--- teacher/migrations/0006_auto_20201202_1040.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ teacher/migrations/0006_auto_20201202_1040.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
+@@ -1,18 +0,0 @@
+-# Generated by Django 3.1.3 on 2020-12-02 10:40
+-
+-from django.db import migrations, models
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('teacher', '0005_pupilstoobjects_grade'),
+-    ]
+-
+-    operations = [
+-        migrations.AlterField(
+-            model_name='pupilstoobjects',
+-            name='grade',
+-            field=models.IntegerField(default=0),
+-        ),
+-    ]
+Index: teacher/migrations/0002_pupilstoobjects.py
+===================================================================
+--- teacher/migrations/0002_pupilstoobjects.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ teacher/migrations/0002_pupilstoobjects.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
+@@ -1,23 +0,0 @@
+-# Generated by Django 3.1.3 on 2020-12-02 09:47
+-
+-from django.db import migrations, models
+-import django.db.models.deletion
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('pupils', '0004_auto_20201202_0915'),
+-        ('teacher', '0001_initial'),
+-    ]
+-
+-    operations = [
+-        migrations.CreateModel(
+-            name='PupilstoObjects',
+-            fields=[
+-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+-                ('pupils', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='pupils.pupils')),
+-                ('subjects', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='to_subjects', to='teacher.subject')),
+-            ],
+-        ),
+-    ]
+Index: teacher/migrations/0007_auto_20201202_1055.py
+===================================================================
+--- teacher/migrations/0007_auto_20201202_1055.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ teacher/migrations/0007_auto_20201202_1055.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
+@@ -1,24 +0,0 @@
+-# Generated by Django 3.1.3 on 2020-12-02 10:55
+-
+-from django.db import migrations, models
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('teacher', '0006_auto_20201202_1040'),
+-    ]
+-
+-    operations = [
+-        migrations.CreateModel(
+-            name='Grade',
+-            fields=[
+-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+-                ('grade', models.IntegerField(default=0)),
+-            ],
+-        ),
+-        migrations.RemoveField(
+-            model_name='pupilstoobjects',
+-            name='grade',
+-        ),
+-    ]
+Index: teacher/migrations/0008_delete_grade.py
+===================================================================
+--- teacher/migrations/0008_delete_grade.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ teacher/migrations/0008_delete_grade.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
+@@ -1,16 +0,0 @@
+-# Generated by Django 3.1.3 on 2020-12-02 12:32
+-
+-from django.db import migrations
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('teacher', '0007_auto_20201202_1055'),
+-    ]
+-
+-    operations = [
+-        migrations.DeleteModel(
+-            name='Grade',
+-        ),
+-    ]
+Index: teacher/migrations/0003_auto_20201202_0951.py
+===================================================================
+--- teacher/migrations/0003_auto_20201202_0951.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ teacher/migrations/0003_auto_20201202_0951.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
+@@ -1,24 +0,0 @@
+-# Generated by Django 3.1.3 on 2020-12-02 09:51
+-
+-from django.db import migrations, models
+-import django.db.models.deletion
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('pupils', '0004_auto_20201202_0915'),
+-        ('teacher', '0002_pupilstoobjects'),
+-    ]
+-
+-    operations = [
+-        migrations.RemoveField(
+-            model_name='pupilstoobjects',
+-            name='pupils',
+-        ),
+-        migrations.AddField(
+-            model_name='pupilstoobjects',
+-            name='classes',
+-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='pupils.class'),
+-        ),
+-    ]
+Index: pupils/migrations/0003_auto_20201201_1246.py
+===================================================================
+--- pupils/migrations/0003_auto_20201201_1246.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ pupils/migrations/0003_auto_20201201_1246.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
+@@ -1,18 +0,0 @@
+-# Generated by Django 3.1.3 on 2020-12-01 12:46
+-
+-from django.db import migrations
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('pupils', '0002_auto_20201130_1227'),
+-    ]
+-
+-    operations = [
+-        migrations.RenameField(
+-            model_name='class',
+-            old_name='pupile_class',
+-            new_name='pupil_class',
+-        ),
+-    ]
+Index: pupils/migrations/0002_auto_20201130_1227.py
+===================================================================
+--- pupils/migrations/0002_auto_20201130_1227.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ pupils/migrations/0002_auto_20201130_1227.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
+@@ -1,32 +0,0 @@
+-# Generated by Django 3.1.3 on 2020-11-30 12:27
+-
+-from django.db import migrations, models
+-import django.db.models.deletion
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('pupils', '0001_initial'),
+-    ]
+-
+-    operations = [
+-        migrations.RemoveField(
+-            model_name='class',
+-            name='classes',
+-        ),
+-        migrations.RemoveField(
+-            model_name='pupils',
+-            name='pupile_class',
+-        ),
+-        migrations.AddField(
+-            model_name='class',
+-            name='pupile_class',
+-            field=models.CharField(max_length=50, null=True),
+-        ),
+-        migrations.AddField(
+-            model_name='pupils',
+-            name='classes',
+-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='pupils.class'),
+-        ),
+-    ]
+Index: teacher/migrations/0004_auto_20201202_0958.py
+===================================================================
+--- teacher/migrations/0004_auto_20201202_0958.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ teacher/migrations/0004_auto_20201202_0958.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
+@@ -1,23 +0,0 @@
+-# Generated by Django 3.1.3 on 2020-12-02 09:58
+-
+-from django.db import migrations, models
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('pupils', '0004_auto_20201202_0915'),
+-        ('teacher', '0003_auto_20201202_0951'),
+-    ]
+-
+-    operations = [
+-        migrations.RemoveField(
+-            model_name='pupilstoobjects',
+-            name='classes',
+-        ),
+-        migrations.AddField(
+-            model_name='pupilstoobjects',
+-            name='classes',
+-            field=models.ManyToManyField(null=True, to='pupils.Class'),
+-        ),
+-    ]
+Index: teacher/migrations/0005_pupilstoobjects_grade.py
+===================================================================
+--- teacher/migrations/0005_pupilstoobjects_grade.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ teacher/migrations/0005_pupilstoobjects_grade.py	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
+@@ -1,19 +0,0 @@
+-# Generated by Django 3.1.3 on 2020-12-02 10:38
+-
+-from django.db import migrations, models
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('teacher', '0004_auto_20201202_0958'),
+-    ]
+-
+-    operations = [
+-        migrations.AddField(
+-            model_name='pupilstoobjects',
+-            name='grade',
+-            field=models.IntegerField(default=1),
+-            preserve_default=False,
+-        ),
+-    ]
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"BranchesTreeState\">\n    <expand>\n      <path>\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n      </path>\n      <path>\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n      </path>\n      <path>\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n        <item name=\"GROUP_NODE:origin\" type=\"e8cecc67:BranchNodeDescriptor\" />\n      </path>\n    </expand>\n    <select />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"329194b2-299c-4602-909b-b5a7b2b8f399\" name=\"Default Changelist\" comment=\"\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/pupils/views.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pupils/views.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/teacher/views.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/teacher/views.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"DjangoConsoleOptions\" custom-start-script=\"import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)\">\n    <option name=\"myCustomStartScript\" value=\"import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\n  </component>\n  <component name=\"JupyterTrust\" id=\"007a7637-5c86-482e-8ae5-8833c7c1813b\" />\n  <component name=\"ProjectId\" id=\"1l0VA7eRKvMgIgRwMHPyDQW7Hfx\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n    <option name=\"showMembers\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\n    <property name=\"settings.editor.selected.configurable\" value=\"reference.settingsdialog.IDE.editor.colors\" />\n  </component>\n  <component name=\"RunManager\">\n    <configuration name=\"SchoolSystem\" type=\"Python.DjangoServer\" factoryName=\"Django server\">\n      <module name=\"SchoolSystem\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <option name=\"launchJavascriptDebuger\" value=\"false\" />\n      <option name=\"port\" value=\"8000\" />\n      <option name=\"host\" value=\"\" />\n      <option name=\"additionalOptions\" value=\"\" />\n      <option name=\"browserUrl\" value=\"\" />\n      <option name=\"runTestServer\" value=\"false\" />\n      <option name=\"runNoReload\" value=\"false\" />\n      <option name=\"useCustomRunCommand\" value=\"false\" />\n      <option name=\"customRunCommand\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"329194b2-299c-4602-909b-b5a7b2b8f399\" name=\"Default Changelist\" comment=\"\" />\n      <created>1606733849902</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1606733849902</updated>\n      <workItem from=\"1606733851115\" duration=\"18000\" />\n      <workItem from=\"1606818483359\" duration=\"8344000\" />\n      <workItem from=\"1606895812307\" duration=\"17754000\" />\n      <workItem from=\"1606980281779\" duration=\"718000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"modify\">\n      <created>1606828154571</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1606828154572</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"modify\">\n      <created>1606913851239</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1606913851240</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"add classes table in admin.py\">\n      <created>1606980909578</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1606980909579</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"add classes table in admin.py\">\n      <created>1606980915950</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1606980915950</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"add classes\">\n      <created>1606980948041</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1606980948041</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"add new serializers\">\n      <created>1606980966766</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1606980966766</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"add new serializers\">\n      <created>1606980970226</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1606980970226</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"add links\">\n      <created>1606980984564</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1606980984564</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"9\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"modify\" />\n    <MESSAGE value=\"add classes table in admin.py\" />\n    <MESSAGE value=\"add classes\" />\n    <MESSAGE value=\"add new serializers\" />\n    <MESSAGE value=\"add links\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"add links\" />\n  </component>\n  <component name=\"WindowStateProjectService\">\n    <state x=\"466\" y=\"121\" width=\"424\" height=\"478\" key=\"FileChooserDialogImpl\" timestamp=\"1606733867512\">\n      <screen x=\"0\" y=\"0\" width=\"1366\" height=\"728\" />\n    </state>\n    <state x=\"466\" y=\"121\" width=\"424\" height=\"478\" key=\"FileChooserDialogImpl/0.0.1366.728@0.0.1366.728\" timestamp=\"1606733867512\" />\n    <state x=\"187\" y=\"0\" key=\"SettingsEditor\" timestamp=\"1606909146930\">\n      <screen x=\"0\" y=\"0\" width=\"1366\" height=\"728\" />\n    </state>\n    <state x=\"187\" y=\"0\" key=\"SettingsEditor/0.0.1366.728@0.0.1366.728\" timestamp=\"1606909146930\" />\n    <state x=\"278\" y=\"99\" width=\"800\" height=\"522\" key=\"Vcs.Push.Dialog.v2\" timestamp=\"1606913855849\">\n      <screen x=\"0\" y=\"0\" width=\"1366\" height=\"728\" />\n    </state>\n    <state x=\"278\" y=\"99\" width=\"800\" height=\"522\" key=\"Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728\" timestamp=\"1606913855849\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision 1ccb514b4b7c983fd3e02b674965fb1d88fb1869)
++++ .idea/workspace.xml	(date 1606992883006)
+@@ -20,9 +20,23 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="329194b2-299c-4602-909b-b5a7b2b8f399" name="Default Changelist" comment="">
++      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pupils/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/views.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/teacher/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/views.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/pupils/migrations/0002_auto_20201130_1227.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/pupils/migrations/0003_auto_20201201_1246.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/pupils/migrations/0004_auto_20201202_0915.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/pupils/migrations/0005_auto_20201202_1232.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/pupils/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/models.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/pupils/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/pupils/serializers.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/teacher/migrations/0002_pupilstoobjects.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/teacher/migrations/0003_auto_20201202_0951.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/teacher/migrations/0004_auto_20201202_0958.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/teacher/migrations/0005_pupilstoobjects_grade.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/teacher/migrations/0006_auto_20201202_1040.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/teacher/migrations/0007_auto_20201202_1055.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/teacher/migrations/0008_delete_grade.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/teacher/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/models.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/teacher/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/serializers.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -45,6 +59,7 @@
+   </component>
+   <component name="PropertiesComponent">
+     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
++    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+@@ -85,7 +100,7 @@
+       <workItem from="1606733851115" duration="18000" />
+       <workItem from="1606818483359" duration="8344000" />
+       <workItem from="1606895812307" duration="17754000" />
+-      <workItem from="1606980281779" duration="718000" />
++      <workItem from="1606980281779" duration="12588000" />
+     </task>
+     <task id="LOCAL-00001" summary="modify">
+       <created>1606828154571</created>
+@@ -143,7 +158,56 @@
+       <option name="project" value="LOCAL" />
+       <updated>1606980984564</updated>
+     </task>
+-    <option name="localTasksCounter" value="9" />
++    <task id="LOCAL-00009" summary="write logic for the site">
++      <created>1606981163826</created>
++      <option name="number" value="00009" />
++      <option name="presentableId" value="LOCAL-00009" />
++      <option name="project" value="LOCAL" />
++      <updated>1606981163826</updated>
++    </task>
++    <task id="LOCAL-00010" summary=".">
++      <created>1606981174543</created>
++      <option name="number" value="00010" />
++      <option name="presentableId" value="LOCAL-00010" />
++      <option name="project" value="LOCAL" />
++      <updated>1606981174543</updated>
++    </task>
++    <task id="LOCAL-00011" summary="add table Grade in admin.py">
++      <created>1606990801627</created>
++      <option name="number" value="00011" />
++      <option name="presentableId" value="LOCAL-00011" />
++      <option name="project" value="LOCAL" />
++      <updated>1606990801627</updated>
++    </task>
++    <task id="LOCAL-00012" summary="add filed grade in models.py">
++      <created>1606990903700</created>
++      <option name="number" value="00012" />
++      <option name="presentableId" value="LOCAL-00012" />
++      <option name="project" value="LOCAL" />
++      <updated>1606990903700</updated>
++    </task>
++    <task id="LOCAL-00013" summary="add table grade in models.py">
++      <created>1606990934919</created>
++      <option name="number" value="00013" />
++      <option name="presentableId" value="LOCAL-00013" />
++      <option name="project" value="LOCAL" />
++      <updated>1606990934919</updated>
++    </task>
++    <task id="LOCAL-00014" summary="add grade in fields">
++      <created>1606990985436</created>
++      <option name="number" value="00014" />
++      <option name="presentableId" value="LOCAL-00014" />
++      <option name="project" value="LOCAL" />
++      <updated>1606990985436</updated>
++    </task>
++    <task id="LOCAL-00015" summary="initial commit">
++      <created>1606991016915</created>
++      <option name="number" value="00015" />
++      <option name="presentableId" value="LOCAL-00015" />
++      <option name="project" value="LOCAL" />
++      <updated>1606991016915</updated>
++    </task>
++    <option name="localTasksCounter" value="16" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -167,9 +231,20 @@
+     <MESSAGE value="add classes" />
+     <MESSAGE value="add new serializers" />
+     <MESSAGE value="add links" />
+-    <option name="LAST_COMMIT_MESSAGE" value="add links" />
++    <MESSAGE value="write logic for the site" />
++    <MESSAGE value="." />
++    <MESSAGE value="add table Grade in admin.py" />
++    <MESSAGE value="add filed grade in models.py" />
++    <MESSAGE value="add table grade in models.py" />
++    <MESSAGE value="add grade in fields" />
++    <MESSAGE value="initial commit" />
++    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+   </component>
+   <component name="WindowStateProjectService">
++    <state x="419" y="168" width="517" height="384" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606985341871">
++      <screen x="0" y="0" width="1366" height="728" />
++    </state>
++    <state x="419" y="168" width="517" height="384" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1606985341871" />
+     <state x="466" y="121" width="424" height="478" key="FileChooserDialogImpl" timestamp="1606733867512">
+       <screen x="0" y="0" width="1366" height="728" />
+     </state>
+@@ -178,9 +253,9 @@
+       <screen x="0" y="0" width="1366" height="728" />
+     </state>
+     <state x="187" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1606909146930" />
+-    <state x="278" y="99" width="800" height="522" key="Vcs.Push.Dialog.v2" timestamp="1606913855849">
++    <state x="278" y="99" width="800" height="522" key="Vcs.Push.Dialog.v2" timestamp="1606991032447">
+       <screen x="0" y="0" width="1366" height="728" />
+     </state>
+-    <state x="278" y="99" width="800" height="522" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1606913855849" />
++    <state x="278" y="99" width="800" height="522" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1606991032447" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/dataSources.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/dataSources.xml	(date 1606985342583)
++++ .idea/dataSources.xml	(date 1606985342583)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
++    <data-source source="LOCAL" name="db" uuid="bba4a1b1-ba80-4456-a126-b996470b5a93">
++      <driver-ref>sqlite.xerial</driver-ref>
++      <synchronize>true</synchronize>
++      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
++      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db.sqlite3</jdbc-url>
++    </data-source>
++  </component>
++</project>
+\ No newline at end of file
