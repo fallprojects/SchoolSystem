@@ -9,7 +9,7 @@ router.register('register',RegisterLoginView)
 urlpatterns = [
     path('teacher/<int:pk>/',TeacherView.as_view(),name='teacher'),
     path('subjects/<int:pk>/',PupilstoSubjects.as_view(),name='subjects'),
-    path('sub/<int:subject_id>/pupils/<int:pupil_id>/',PupilSUbjectDetailGrade.as_view()),
+    path('pupils/<int:pupil_id>/',PupilSUbjectDetailGrade.as_view()),
     path('register/', include(router.urls), name='register'),
     path('login/', AccountLoginView.as_view(), name='login'),
 ]
