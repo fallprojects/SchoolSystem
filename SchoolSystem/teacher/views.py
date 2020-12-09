@@ -27,7 +27,6 @@ class PupilstoSubjects(APIView):
 class PupilSUbjectDetailGrade(APIView):
     permission_classes = [IsAuthenticated]
     def get(self,request,*args,**kwargs):
-
             pupil = Pupils.objects.get(id=kwargs['pupil_id'])
             serializer = PupilsSerializer(pupil)
             return Response(serializer.data,status=status.HTTP_200_OK)
