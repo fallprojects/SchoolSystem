@@ -17,7 +17,6 @@ class TeacherView(APIView):
         teacher = Teacher.objects.get(id=kwargs['pk'])
         serializer = TeacherSerializer(teacher)
         return Response(serializer.data,status=status.HTTP_200_OK)
-
 class PupilstoSubjects(APIView):
     def get(self,*args,**kwargs):
         subjects = PupilstoObjects.objects.get(id=kwargs['pk'])
